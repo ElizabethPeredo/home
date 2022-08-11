@@ -1,4 +1,5 @@
 if (typeof document !== "undefined") {
+    var contrato__alquiler = document.getElementById('contrato__alquiler');
     if(contrato__alquiler){
         document.getElementById("contrato__alquiler").addEventListener("keyup", function (e) {
             document.getElementById("contrato__alquiler__letras").innerHTML = numeroALetras(this.value);
@@ -14,6 +15,7 @@ if (typeof document !== "undefined") {
         });
     }
     
+    var contrato__garantia = document.getElementById('contrato__garantia');
     if(contrato__garantia){
         document.getElementById("contrato__garantia").addEventListener("keyup", function (e) {
             document.getElementById("contrato__garantia__letras").innerHTML = numeroALetras(this.value);
