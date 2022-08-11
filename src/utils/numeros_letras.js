@@ -1,29 +1,33 @@
 if (typeof document !== "undefined") {
-    document.getElementById("contrato__alquiler").addEventListener("keyup", function (e) {
-        document.getElementById("contrato__alquiler__letras").innerHTML = numeroALetras(this.value);
-        console.log(this.value);
-    });
-    document.getElementById("contrato__alquiler").addEventListener("change", function (e) {
-        document.getElementById("contrato__alquiler__letras").innerHTML = numeroALetras(this.value);
-        console.log(this.value);
-    });
-    document.getElementById("contrato__alquiler").addEventListener("change", function (e) {
-        document.getElementById("contrato__alquiler__letras__dato").innerHTML = numeroALetras(this.value);
-        console.log(this.value);
-    });
-
-    document.getElementById("contrato__garantia").addEventListener("keyup", function (e) {
-        document.getElementById("contrato__garantia__letras").innerHTML = numeroALetras(this.value);
-        console.log(this.value);
-    });
-    document.getElementById("contrato__garantia").addEventListener("change", function (e) {
-        document.getElementById("contrato__garantia__letras").innerHTML = numeroALetras(this.value);
-        console.log(this.value);
-    });
-    document.getElementById("contrato__garantia").addEventListener("change", function (e) {
-        document.getElementById("contrato__garantia__letras__dato").innerHTML = numeroALetras(this.value);
-        console.log(this.value);
-    });
+    if(contrato__alquiler){
+        document.getElementById("contrato__alquiler").addEventListener("keyup", function (e) {
+            document.getElementById("contrato__alquiler__letras").innerHTML = numeroALetras(this.value);
+            console.log(this.value);
+        });
+        document.getElementById("contrato__alquiler").addEventListener("change", function (e) {
+            document.getElementById("contrato__alquiler__letras").innerHTML = numeroALetras(this.value);
+            console.log(this.value);
+        });
+        document.getElementById("contrato__alquiler").addEventListener("change", function (e) {
+            document.getElementById("contrato__alquiler__letras__dato").innerHTML = numeroALetras(this.value);
+            console.log(this.value);
+        });
+    }
+    
+    if(contrato__garantia){
+        document.getElementById("contrato__garantia").addEventListener("keyup", function (e) {
+            document.getElementById("contrato__garantia__letras").innerHTML = numeroALetras(this.value);
+            console.log(this.value);
+        });
+        document.getElementById("contrato__garantia").addEventListener("change", function (e) {
+            document.getElementById("contrato__garantia__letras").innerHTML = numeroALetras(this.value);
+            console.log(this.value);
+        });
+        document.getElementById("contrato__garantia").addEventListener("change", function (e) {
+            document.getElementById("contrato__garantia__letras__dato").innerHTML = numeroALetras(this.value);
+            console.log(this.value);
+        });
+    }
 }
 
 function numeroALetras(n) {
