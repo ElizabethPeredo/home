@@ -1,5 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Mulish:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Skranji:wght@400;700&display=swap");
-
+:root{
+  --color1:#ff7c01;
+  --color2:#00c621;
+  --color3:#008cff;
+  --color4:#0fd1c7;
+  --color5:#6c6cff;
+  --color6:#e92d2d;
+}
 html,
 body {
   padding: 0;
@@ -20,32 +27,30 @@ a {
     Helvetica Neue, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-
-  body {
-    color: white;
-    background: black;
-  }
+.abrir{
+  display: block!important;
+  visibility: visible;
 }
-fieldset label{
+fieldset label {
   display: block;
+  font-weight: bold;
 }
-input{
+legend {
+  font-weight: bolder;
+}
+input {
   text-transform: uppercase;
 }
 article {
   padding: 1mm;
   background: white;
   text-transform: uppercase;
+  text-align: justify;
 }
 
 article.imprimir * {
   font-size: 4mm;
   font-family: "Open Sans", sans-serif;
-  text-align: justify;
 }
 
 article.imprimir h1 {
@@ -53,9 +58,50 @@ article.imprimir h1 {
   font-weight: bolder;
 }
 
-article span{
-  background:rgb(51, 192, 248);
+article span {
 }
+
+article span.span1,
+.bg-color1 {
+  background: var(--color1);
+  /*color: white;*/
+}
+article span.span2,
+.bg-color2 {
+  background: var(--color2);
+  /*color: white;*/
+}
+article span.span3,
+.bg-color3 {
+  background: var(--color3);
+  /*color: white;*/
+}
+article span.span4,
+.bg-color4 {
+  background: var(--color4);
+  /*color: white;*/
+}
+article span.span5,
+.bg-color5 {
+  background: var(--color5);
+  /*color: white;*/
+}
+article span.span6,
+.bg-color6 {
+  background: var(--color6);
+  /*color: white;*/
+}
+
+article h1 {
+  line-height: 1.5em;
+  display: flex;
+  justify-content: center;
+}
+
+.hide {
+  display: none;
+}
+
 
 @media only print {
   :root {
@@ -68,7 +114,7 @@ article span{
   }
 
   article {
-    margin:0;
+    margin: 0;
     padding: 15mm;
     background: white;
     max-height: 297mm !important;
@@ -80,14 +126,22 @@ article span{
     /*padding: 0em !important;*/
   }
 
-  article span{
-    background:white;
+  article span {
+    background: white;
+  }
+
+  article p {
+    line-height: 1.3em;
+  }
+  article * {
+    text-align: justify;
   }
 
   header,
   footer,
   .left,
-  .btn-print {
+  .btn-print,
+  .datos {
     display: none;
     visibility: hidden;
   }

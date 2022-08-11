@@ -1,5 +1,9 @@
 import Head from 'next/head'
 import Link from 'next/link'
+import { Card } from 'react-bootstrap'
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 export default function Home() {
   return (
@@ -10,28 +14,44 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="main">
-        <h1 className="title">
+      <main className="m-3">
+        <h1 className="m-1">
           HOME
         </h1>
 
-        <div className="grid">
-
-          <Link href={{pathname: "/Contrato"}}>
-            <a href="" className="card">
-              <h2>CREAR CONTRATO</h2>
-              <p>Find in-depth information about Next.js features and API.</p>
-            </a>
-          </Link>
-
-
-          <a href="https://nextjs.org/learn" className="card">
-            <h2>CREAR RECIBO</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-        </div>
+        <Container>
+          <Row> 
+            <Col sm={12} md={6}>
+              <Link href={{ pathname: "/Contrato" }}>
+                <Card className="m-1 pe-auto" border="primary" style={{ width: 'auto' }}>
+                  <Card.Header>CREAR CONTRATO</Card.Header>
+                  <Card.Body>
+                    <Card.Title>CREAR CONTRATO</Card.Title>
+                    <Card.Text>
+                      Some quick example text to build on the card title and make up the
+                      bulk of the card content.
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              </Link>
+            </Col>
+            <Col sm={12} md={6}>
+              <Link href={{ pathname: "/Contrato" }}>
+              <Card className="m-1 pe-auto" border="primary" style={{ width: 'auto' }}>
+                  <Card.Header>CREAR RECIBO</Card.Header>
+                  <Card.Body>
+                    <Card.Title>CREAR RECIBO</Card.Title>
+                    <Card.Text>
+                      Some quick example text to build on the card title and make up the
+                      bulk of the card content.
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              </Link>
+            </Col>
+          </Row>
+        </Container>
       </main>
-
     </div>
   )
 }
