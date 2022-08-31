@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPrint } from "@fortawesome/free-solid-svg-icons"
 import "../../utils/numeros_letras"
 
+
 export default function Contrato() {
     const toInputUppercase = e => {
         e.target.value = ("" + e.target.value).toUpperCase();
@@ -300,6 +301,7 @@ export default function Contrato() {
         }
         var inmueble__numero = document.getElementById('inmueble__numero');
         var inmueble__numero__dato = document.getElementById('inmueble__numero__dato');
+        var inmueble__numero__dato2 = document.getElementById('inmueble__numero__dato2');
         var inmueble__piso = document.getElementById('inmueble__piso');
         var inmueble__piso__dato = document.getElementById('inmueble__piso__dato');
         var inmueble__descripcion = document.getElementById('inmueble__descripcion');
@@ -308,10 +310,12 @@ export default function Contrato() {
         if (inmueble__numero && inmueble__piso) {
             inmueble__numero.addEventListener('keyup', () => {
                 inmueble__numero__dato.innerHTML = inmueble__numero.value;
+                inmueble__numero__dato2.innerHTML = inmueble__numero.value;
                 console.log(inmueble__numero.value);
             });
             inmueble__numero.addEventListener('change', () => {
                 inmueble__numero__dato.innerHTML = inmueble__numero.value;
+                inmueble__numero__dato2.innerHTML = inmueble__numero.value;
                 console.log(inmueble__numero.value);
             });
             inmueble__piso.addEventListener('keyup', () => {
@@ -375,6 +379,31 @@ export default function Contrato() {
                 propiedad__departamento__dato.innerHTML = "CUSCO";
             });
         }
+
+        function exportWord(element) {
+            var style = 'style="font-size: 4mm;text-align: justify;font-family:Arial; margin:0 !important;padding: 0 !important;text-transform: uppercase;"';
+            var css = "<style>html,body *,.hide,@page *,*,h1,h2,p,span,b,table *{text-transform: uppercase;} .hide{display: none;visibility: hidden;color:red; font-size:0;line-height:0} h1{font-size: 4.5mm;} h2{font-size: 4mm;text-decoration: underline;margin:.2in 0 0 0} p{margin:0} table{font-family:'Arial';text-align: center;text-transform: uppercase;} table thead tr th{border-bottom: 1px solid}"
+                + "@page{size:A4; mso-first-footer:ff1; mso-footer: f1; mso-header: h1; padding:24.0pt 24.0pt 24.0pt 24.0pt; margin:0.75in 0.50in 0.75in 0.50in ; mso-header-margin:.5in; mso-footer-margin:.5in; mso-paper-source:0;}"
+                + "div.Section1{page:Section1;}"
+                + "p.MsoFooter, li.MsoFooter, div.MsoFooter{margin:0in; margin-bottom:.0001pt; mso-pagination:widow-orphan; tab-stops:center 3.0in right 6.0in; font-size:12.0pt; font-family:'Arial';}"
+                + "p.MsoHeader, li.MsoHeader, div.MsoHeader {margin:0in; margin-bottom:.0001pt; mso-pagination:widow-orphan; tab-stops:center 3.0in right 6.0in; font-size:12.0pt; font-family:'Arial';}" + "</style>";
+
+
+            var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' " +
+                "xmlns:w='urn:schemas-microsoft-com:office:word' " +
+                "xmlns='http://www.w3.org/TR/REC-html40'>" +
+                "<head><meta charset='utf-8'>" + css + "</head><body class='MsoNormal'" + style + "><div class=Section1>" + css;
+            var footer = "</div></body></html>";
+            var sourceHTML = header + document.getElementById("source-html").innerHTML + footer;
+
+            var source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
+            var fileDownload = document.createElement("a");
+            document.body.appendChild(fileDownload);
+            fileDownload.href = source;
+            fileDownload.download = 'document.doc';
+            fileDownload.click();
+            document.body.removeChild(fileDownload);
+        }
     }
 
     return (
@@ -385,6 +414,7 @@ export default function Contrato() {
                     <button type="button" className="m-1 btn btn-success" id="datos__arrendador">JUSTINO PEREDO</button>
                     <button type="button" className="m-1 btn btn-danger" id="datos__propiedad1">TRES CRUCES</button>
                     <button type="button" className="m-1 btn btn-danger" id="datos__propiedad2">LICENCIADOS</button>
+                    <button type="button" className="m-1 btn btn-success" onClick={() => exportWord('window.docx')}>Imprimir Word</button>
                 </main>
                 <main>
                     <Row className="p-0">
@@ -557,9 +587,9 @@ export default function Contrato() {
                                 <Button type="submit" className="mt-3">IMPRIMIR</Button>
                             </Form>
                         </Col>
-                        <Col xs={12} sm={12} md={6} lg={6} xl={7} className="right">
+                        <Col xs={12} sm={12} md={6} lg={6} xl={7} className="right" id="source-html">
                             <article className="imprimir">
-                                <h1>CONTRATO DE ARRENDAMIENTO</h1>
+                                <h1><center>CONTRATO DE ARRENDAMIENTO</center></h1>
                                 <p>
                                     CONSTE POR EL PRESENTE DOCUMENTO DENOMINADO CONTRATO DE ARRENDAMIENTO, QUE CELEBRAN DE UNA PARTE
                                     <b> <span className="span1" id="arrendador__nombre__dato">NOMBRE</span> </b>
@@ -580,15 +610,17 @@ export default function Contrato() {
                                     IDENTIFICADO CON DNI N°
                                     <b> <span className="span2" id="arrendatario__dni__dato">DNI</span></b>
                                     , CON DOMICILIO EN
-                                    <b> <span className="span2" id="arrendatario__direccion__dato">DOMICILIO</span></b>
+                                    <b> <span className="span2" id="arrendatario__direccion__dato">DOMICILIO</span> </b>
                                     DEL DISTRITO DE
                                     <b> <span className="span2" id="arrendatario__distrito__dato">DISTRITO</span></b>
                                     , PROVINCIA DE
                                     <b> <span className="span2" id="arrendatario__provincia__dato">PROVINCIA</span> </b>
                                     Y DEPARTAMENTO DE
                                     <b> <span className="span2" id="arrendatario__departamento__dato">DEPARTAMENTO</span> </b>
-                                    A QUIEN EN ADELANTE SE LE DENOMINARA <b>EL ARRENDATARIO</b>, DE ACUERDO A LOS TÉRMINOS Y CONDICIONES SIGUIENTES:</p><p>
-                                    <b>ANTECEDENTES</b></p><p>
+                                    A QUIEN EN ADELANTE SE LE DENOMINARA <b>EL ARRENDATARIO</b>, DE ACUERDO A LOS TÉRMINOS Y CONDICIONES SIGUIENTES:</p>
+                                <h2>
+                                    <b>ANTECEDENTES</b></h2>
+                                <p>
                                     <b>PRIMERA. -</b> <b>EL ARRENDADOR</b> ES PROPIETARIO DEL INMUEBLE UBICADO EN
                                     <b> <span className="span3" id="propiedad__ubicacion__dato">UBICACIÓN</span> </b>
                                     DEL DISTRITO DE
@@ -614,31 +646,30 @@ export default function Contrato() {
                                     <b>SEGUNDA. -</b> <b>EL ARRENDADOR</b> DEJA CONSTANCIA QUE <span className="span4" id="inmueble__descripcion__dato">DESCRIPCIÓN</span> AL QUE SE REFIERE LA CLAUSULA ANTERIOR, SE ENCUENTRA DESOCUPADO, ENCONTRANDOSE EN BUEN ESTADO DE CONSERVACIÓN.
                                 </p>
 
-                                <p>
+                                <h2>
                                     <b>OBJETO DEL CONTRATO:</b>
-                                </p>
+                                </h2>
 
                                 <p className="hide" id="tercera_oficina">
                                     <b>TERCERA. -</b> MEDIANTE EL PRESENTE CONTRATO <b>EL ARRENDADOR</b> DA EN ALQUILER AL ARRENDATARIO, EL AMBIENTE OFICINA N°
-                                    <b> <span className="span4" id="inmueble__numero__dato">OFICINA</span> </b>
+                                    <b> <span className="span4" id="inmueble__numero__dato2">OFICINA</span> </b>
                                     DESCRITO EN LA CLAUSULA SEGUNDA PARA DESTINARLO UNICAMENTE PARA DEPOSITO, EL CUAL ES RECIBIDO EN PERFECTO ESTADO DE OPERATIVIDAD, CONFORME A SEÑALADO EN LA CLAUSULA SEGUNDA. POR SU PARTE, <b>EL ARRENDATARIO</b> SE OBLIGA A PAGAR A <b>EL ARRENDADOR</b> EL MONTO DE LA RENTA PACTADA EN LA CLAUSULA SIGUIENTE, EN LA FORMA Y OPORTUNIDAD CONVENIDAS.
-                                    RENTA: FORMA Y OPORTUNIDAD DE PAGO:
                                 </p>
                                 <p className="" id="tercera_habitacion">
                                     <b>TERCERA. -</b> MEDIANTE EL PRESENTE CONTRATO <b>EL ARRENDADOR</b> DA EN ALQUILER AL ARRENDATARIO, EL AMBIENTE DESCRITO EN LA CLAUSULA SEGUNDA, EL CUAL ES RECIBIDO EN PERFECTO ESTADO DE OPERATIVIDAD, CONFORME A SEÑALADO EN LA CLAUSULA SEGUNDA. POR SU PARTE, LOS ARRENDATARIOS SE OBLIGA A PAGAR A <b>EL ARRENDADOR</b> EL MONTO DE LA RENTA PACTADA EN LA CLAUSULA SIGUIENTE, EN LA FORMA Y OPORTUNIDAD CONVENIDAS
                                 </p>
 
-                                <p><b>RENTA - FORMA Y OPORTUNIDAD DE PAGO:</b></p>
+                                <h2><b>RENTA - FORMA Y OPORTUNIDAD DE PAGO:</b></h2>
 
                                 <p>
                                     <b>CUARTA. -</b> LAS PARTES ACUERDAN QUE EL MONTO DE LA MERCED CONDUCTIVA <b>EL ARRENDATARIO</b>, EN CALIDAD DE CONTRAPRESTACIÓN PAGARÁ LA SUMA DE
                                     <b> S/. <span className="span5" id="contrato__alquiler__dato">MONTO ALQUILER</span>.00 </b>
-                                    <b>(<span className="span5" id="contrato__alquiler__letras__dato">MONTO ALQUILER LETRAS</span> CON 00/100 SOLES)</b>
+                                    <b>(<span className="span5" id="contrato__alquiler__letras__dato">MONTO ALQUILER LETRAS</span> CON 00/100 SOLES) </b>
                                     MENSUALES, CANTIDAD QUE SERÁ CANCELADA EN DINERO EFECTIVO, EN LA FORMA Y OPORTUNIDAD A QUE SE REFIERE LA CLAUSULA SIGUIENTE. ASIMISMO, LOS SERVICIOS BASICOS DE AGUA Y ENERGIA ELÉCTRICA ESTAN INCLUIDOS EN LA MERCED CONDUCTIVA. </p><p>
                                     <b>QUINTA. -</b> LA FORMA Y OPORTUNIDAD DE PAGO DE LA RENTA SERA ADELANTADA, DURANTE EL TIEMPO DE VIGENCIA DEL CONTRATO, QUE <b>EL ARRENDATARIO</b> PAGARÁ EN EL DOMICILIO DE <b>EL ARRENDADOR</b>, ES DECIR EN SU DOMICILIO UBICADO EN EL MISMO INMUEBLE DONDE QUEDAN LAS INDICADAS OFICINAS.</p>
-                                <p>
+                                <h2>
                                     <b>PLAZO DEL CONTRATO:</b>
-                                </p>
+                                </h2>
 
                                 <p>
                                     <b>SEXTA. -</b> EL PLAZO DEL PRESENTE CONTRATO ES DE UN AÑO, EL CUAL REGIRA A PARTIR DEL
@@ -649,7 +680,7 @@ export default function Contrato() {
                                 </p>
                             </article>
                             <article className="imprimir">
-                                <p><b>OBLIGACIONES DE LAS PARTES:</b></p>
+                                <h2><b>OBLIGACIONES DE LAS PARTES:</b></h2>
                                 <p>
                                     <b>SETIMA. -</b> <b>EL ARRENDATARIO</b> QUEDA PROHIBIDA DE INTRODUCIR MEJORAS, CAMBIOS O MODIFICACIONES INTERNAS Y EXTERNAS EN EL BIEN ARRENDADO, SIN EL CONSENTIMIENTO EXPRESO Y POR ESCRITO DE <b>EL ARRENDADOR</b> TODAS LAS MEJORAS INCLUSIVE LAS DE RECREO, SERÁN DE BENEFICIO DE <b>EL ARRENDADOR</b>, SIN OBLIGACIÓN DE PAGO ALGUNO.
                                 </p>
@@ -659,61 +690,61 @@ export default function Contrato() {
                                 <p>
                                     <b>NOVENA. -</b> <b>EL ARRENDATARIO</b> SE OBLIGA A DESOCUPAR EL BIEN ARRENDADO EN LA FECHA DE VENCIMIENTO DEL PLAZO ESTIPULADO EN LA CLÁUSULA SEXTA DE ESTE CONTRATO, SALVO RENOVACIÓN DEL MISMO.
                                 </p>
+                                <h2>
+                                    <b>CLAUSULA DE GARANTÍA:</b>
+                                </h2>
                                 <p>
-                                    <b>CLAUSULA DE GARANTÍA:</b></p><p>
                                     <b>DECIMO. -</b> EN FECHA DE SUSCRIPCIÓN DEL PRESENTE DOCUMENTO <b>EL ARRENDATARIO</b> ENTREGA A <b>EL ARRENDADOR</b> LA SUMA DE
                                     <b> S/. <span className="span5" id="contrato__garantia__dato">MONTO GARANTÍA</span>.00 </b>
-                                    <b>(<span className="span5" id="contrato__garantia__letras__dato">MONTO GARANTÍA LETRAS</span> CON 00/100 SOLES)</b>
-                                    EN CALIDAD DE GARANTIA POR EL CONTRATO DE ALQUILER. EL MENCIONADO DEPÓSITO EN GARANTIA LE SERÁ DEVUELTO AL ARRENDATARIO SIN INTERESES O RENTAS, AL VENCIMIENTO DEL PRESENTE CONTRATO, SIEMPRE QUE NO HAYA SIDO RENOVADO, Y UNA VEZ VERIFICADO EL ESTADO DE CONSERVACIÓN Y FUNCIONAMIENTO DEL BIEN ARRENDADO. LAS PARTES DEJAN ESTABLECIDO QUE EL DEPOSITO EN GARANTIA, NO PODRÁ SER DESTINADO A CUBRIR EL PAGO DE LA RENTA DE NINGUN PERÍODO,
-                                    CLAUSULA DE SOLUCION DE CONFLICTOS:</p><p>
+                                    <b>(<span className="span5" id="contrato__garantia__letras__dato">MONTO GARANTÍA LETRAS</span> CON 00/100 SOLES) </b>
+                                    EN CALIDAD DE GARANTIA POR EL CONTRATO DE ALQUILER. EL MENCIONADO DEPÓSITO EN GARANTIA LE SERÁ DEVUELTO AL ARRENDATARIO SIN INTERESES O RENTAS, AL VENCIMIENTO DEL PRESENTE CONTRATO, SIEMPRE QUE NO HAYA SIDO RENOVADO, Y UNA VEZ VERIFICADO EL ESTADO DE CONSERVACIÓN Y FUNCIONAMIENTO DEL BIEN ARRENDADO. LAS PARTES DEJAN ESTABLECIDO QUE EL DEPOSITO EN GARANTIA, NO PODRÁ SER DESTINADO A CUBRIR EL PAGO DE LA RENTA DE NINGUN PERÍODO.
+                                </p>
+                                <h2><b>
+                                    CLAUSULA DE SOLUCION DE CONFLICTOS:</b>
+                                </h2>
+                                <p>
                                     <b>DECIMO PRIMERA. -</b> AMBAS PARTES ACUERDAN DE MANERA VOLUNTARIAS QUE TODA DESAVENENCIA, LITIGIO O CONTROVERSIA QUE PUDIERA DERIVARSE DE ESTE CONTRATO CONVENIO O ACTO JURIDICO, INCLUIDAS LAS DE SU NULIDAD O INVALIDEZ, SERÁN RESUELTAS A TRAVES DE CENTROS DE CONCILIACIÓN Y A LA JURISDICCION DE LOS JUECES DE LA CIUDAD DE CUSCO.</p>
                                 <p>
                                     <b>DECIMO SEGUNDA. -</b> EN CASO QUE <b>EL ARRENDATARIO</b> MANTENGA UNA DEUDA DE TRES (03) MESES, O TENGA CONTRATO VENCIDO, SERA DESALOJADO DE ACUERDO A LEYES VIGENTES, EN SEÑAL DE CONFORMIDAD LAS PARTES SUSCRIBEN EL PRESENTE CONTRATO EN LA CIUDAD DE CUSCO, AL
                                     <b> <span className="span6" id="contrato__fecha__dato">FECHA CONTRATO</span> </b>.
                                 </p>
-                                <table className="w-100">
-                                    <tbody Width="100%">
-                                        <tr>
-                                            <td className="pt-5"></td>
-                                            <td className="pt-5"></td>
-                                            <td className="pt-5"></td>
-                                        </tr>
-                                        <tr>
-                                            <td className="pt-5"></td>
-                                            <td className="pt-5"></td>
-                                            <td className="pt-5"></td>
-                                        </tr>
-                                        <tr className="">
-                                            <td Width="45%" className="text-center border-top">
-                                                <b id="arrendador__nombre1"></b>
-                                                <b>&nbsp;</b>
-                                                <b id="arrendador__apellidos1"></b>
-                                            </td>
-                                            <td Width="10%"></td>
-                                            <td Width="45%" className="text-center border-top">
-                                                <b id="arrendatario__nombre1"></b>
-                                                <b>&nbsp;</b>
-                                                <b id="arrendatario__apellidos1"></b>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td Width="45%" className="text-center">
-                                                <b>DNI:</b>
-                                                <b id="arrendador__dni1"></b>
-                                            </td>
-                                            <td Width="10%"></td>
-                                            <td Width="45%" className="text-center">
-                                                <b>DNI:</b>
-                                                <b id="arrendatario__dni1"></b>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td Width="45%" className="text-center"><b>ARRENDADOR</b></td>
-                                            <td Width="10%"></td>
-                                            <td Width="45%" className="text-center"><b>ARRENDATARIO</b></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <center>
+                                    <table className="w-100">
+                                        <thead Width="100%">
+                                            <tr>
+                                                <th><br /><br /><br /><br /><br /></th>
+                                                <td><br /><br /><br /><br /><br /></td>
+                                                <th><br /><br /><br /><br /><br /></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody Width="100%">
+                                            <tr className="">
+                                                <td Width="45%" className="text-center border-top">
+                                                    <b id="arrendador__nombre1"></b>
+                                                    <b>&nbsp;</b>
+                                                    <b id="arrendador__apellidos1"></b>
+                                                    <br />
+                                                    <b>DNI:</b>
+                                                    <b id="arrendador__dni1"></b>
+                                                    <br />
+                                                    <b>ARRENDADOR</b>
+                                                </td>
+                                                <td Width="10%"></td>
+                                                <td Width="45%" className="text-center border-top">
+                                                    <b id="arrendatario__nombre1"></b>
+                                                    <b>&nbsp;</b>
+                                                    <b id="arrendatario__apellidos1"></b>
+                                                    <br />
+                                                    <b>DNI:</b>
+                                                    <b id="arrendador__dni1"></b>
+                                                    <br />
+                                                    <b>ARRENDATARIO</b>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </center>
+                                
                             </article>
                         </Col>
                     </Row>

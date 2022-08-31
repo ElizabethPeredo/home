@@ -205,7 +205,7 @@ function centenas_nal(n) {
         return 'QUINIENTOS'
     }
     if (n + '' == '6') {
-        return 'SEISCIENTOSD'
+        return 'SEISCIENTOS'
     }
     if (n + '' == '7') {
         return 'SETECIENTOS'
